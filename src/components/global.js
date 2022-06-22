@@ -36,4 +36,5 @@ function GlobalStats(props){
       
     
 }
+
 export default GlobalStats;
