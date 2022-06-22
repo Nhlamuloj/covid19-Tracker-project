@@ -1,23 +1,29 @@
+import React, {useEffect, useState} from 'react';
 import logo from './logo.svg';
 import './App.css';
+import  GlobalStats from './components/global'
+import CountriesStats from './components/countriesStats';
 
 function App() {
+
+   const [globalStats, setglobalStats] = useState('')
+
+   const [CountriesStats, setCountriesStats] = useState('')
+  useEffect(()=>{
+    let url ="https://api.covid19api.com/summary";
+    fetch(url).then((response) => response.json().then((data)=>{
+      console.log(data)
+      setglobalStats(data.Global)
+
+      setCountriesStats(data.Countries)
+
+    }))
+  },[])
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+      < GlobalStats global={globalStats}/>
+      <CountriesStats/>
     </div>
   );
 }
